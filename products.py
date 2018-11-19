@@ -1,15 +1,25 @@
-#讀取檔案
-product = []
+import os # operating system
 
-with open("product.csv", "r", encoding = 'utf-8') as f:    #讀取檔案,
-	for line in f:
-		if '商品, 價格' in line:               #continue 跟break一樣只可以寫在loop裡,continue為跳到下一迴的意思(還在迴圈內)<break為結束迴圈
-			continue
-		name, price = line.strip().split(',')  #若要存到3等分或4等分以上可設定3或4等分以上參數，先去除\n換行符號,在分割('逗點'),分割完後為清單
-		product.append([name, price])		   #將name 及price存到product 清單內
-	#	s = line.strip().split(',')            #先去除\n換行符號,在分割('逗點'),分割完後為清單
-	#	print(s)
-print(product)
+product = []
+if os.path.isfile('product.csv'):   #相對路徑
+	print('yes')
+	with open("product.csv", "r", encoding = 'utf-8') as f:    #讀取檔案,寫入檔案 讀取檔案 都有編碼問題
+		for line in f:
+			if '商品, 價格' in line:               #continue 跟break一樣只可以寫在loop裡,continue為跳到下一迴的意思(還在迴圈內)<break為結束迴圈
+				continue
+			name, price = line.strip().split(',')  #若要存到3等分或4等分以上可設定3或4等分以上參數，先去除\n換行符號(strip),在分割('逗點')(split),分割完後為清單
+			product.append([name, price])		   #將name 及price存到product 清單內
+		#	s = line.strip().split(',')            #先去除\n換行符號,在分割('逗點'),分割完後為清單
+		#	print(s)
+	print(product)    
+else:
+    print('Not found....')
+
+
+
+
+
+
 
 #讓使用者輸入
 while True:
@@ -21,7 +31,7 @@ while True:
 	product.append([name,price])
 print(product)
 
-#印出所以購買紀錄
+#印出所有購買紀錄
 for p in product:
 	print(p)
 	print(p[0],'的價格是', p[1])
